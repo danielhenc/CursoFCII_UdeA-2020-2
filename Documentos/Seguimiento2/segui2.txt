@@ -1,0 +1,16 @@
+Segui2_1:
+
+a) Escriba un programa que utilice la generación de números aleatorios para crear enunciados. El programa debe usar
+cuatro arreglos de apuntadores a char llamados articulo, sustantivo, verbo y preposicion. El programa debe crear un
+enunciado, seleccionando una palabra al azar de cada arreglo en el siguiente orden: articulo, sustantivo, verbo, preposición,
+articulo y sustantivo. A medida que se seleccione cada palabra, debe concatenarse con las palabras anteriores en un
+arreglo de caracteres que sea lo bastante grande como para contener el enunciado completo. Las palabras deben separarse por
+espacios. Cuando se imprima el enunciado final, deberá empezar con letra mayúscula y terminar con un punto. El programa
+debe generar 20 enunciados de ese tipo.
+Los arreglos deberán llenarse de la siguiente manera: el arreglo articulo debe contener los artículos "el", "un", "algun"
+y "ningun"; el arreglo sustantivo deberá contener los sustantivos "ninio", "senior", "perro", "ciudad" y "auto"; el
+arreglo verbo deberá contener los verbos "manejo", "salto", "corrio", "camino" y "paso"; el arreglo preposicion deberá
+contener las preposiciones "a", "desde", "encima de", "debajo de" y "sobre".
+
+b) Una vez que escriba el programa anterior, modifíquelo para producir una historia breve que consista de varias de estas
+oraciones (¿qué le parecería un escritor de tesis al azar?).
