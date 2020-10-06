@@ -15,8 +15,8 @@ int main()
   
   srand( time( NULL ) ); 
   
-  cout << "Digitar 0 para ver 20 frases aleatorias" << endl;
-  cout << "Digitar 1 para ver una breve historia" << endl;
+  cout << "Digitar 0 para crear 20 frases" << endl;
+  cout << "Digitar 1 para crear una breve historia" << endl;
   cin >> N;
   
   if( N == 1 )
@@ -31,7 +31,7 @@ int main()
 
   else if ( N == 0 )
     {
-      for( int i = 0; i <= 20; i++)
+      for( int i = 1; i <= 20; i++)
 	{
 	  enunciado(); 
 	}
@@ -79,10 +79,24 @@ void historia( void )
   const char *verbo      [] = { "manejo", "salto", "corrio", "camino", "paso" };
   const char *preposicion[] = { "a", "desde", "encima de", "debajo de", "sobre" };
 
-  cout << articulo    [rand() % 4] << " "
-       << sustantivo  [rand() % 5] << " "
-       << verbo       [rand() % 5] << " "
-       << preposicion [rand() % 5] << " "
-       << articulo    [rand() % 4] << " "
-       << sustantivo  [rand() % 5] << ", ";
+  char historia[ 50 ] = "";
+
+  strcat( historia, articulo[ rand() % 4 ] );
+  strcat( historia, " " );
+  strcat( historia, sustantivo[ rand() % 5 ] );
+  strcat( historia, " " );
+  strcat( historia, verbo[ rand() % 5 ] );
+  strcat( historia, " " );
+  strcat( historia, preposicion[ rand() % 5 ] );
+  strcat( historia, " " );
+  strcat( historia, articulo[ rand() % 4 ] );
+  strcat( historia, " " );
+  strcat( historia, sustantivo[ rand() % 5 ] );
+  strcat( historia, ". " );
+
+  cout << static_cast< char >( toupper( historia[0] ) )
+       << &historia[1];
+
+  historia[0] = '\0';
+  
 }
