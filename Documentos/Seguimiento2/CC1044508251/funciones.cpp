@@ -21,7 +21,7 @@ int main()
   double i;
   cout << "Ingrese un numero:\n";
   cin >> i;
-  cout << "\nValor ingresado: "<< i << " \nParte entera: " << enteros(i) << endl;
+  cout << "\nParte entera: " << enteros(i) << endl;
 }
 //*/
 
@@ -49,6 +49,6 @@ int main()
   cout << "Ingrese un numero:\n";
   cin >> i;
   
-  cout << "\nValor ingresado: " << i << "\nParte entera: " << enteros(i) << "\nParte decimal: " << partefracc(i) << endl;
+  cout << "\nParte entera: " << enteros(i) << "\nParte decimal: " << partefracc(i) << endl;
 }
 //*/
