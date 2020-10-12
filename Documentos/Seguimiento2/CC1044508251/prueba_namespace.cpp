@@ -1,5 +1,5 @@
 #include<iostream>
-#include</home/anacristina/Semestre_9/FCII/Tareas/Seguimiento2/namespace/v3/intNumber.cpp>
+#include</home/anacristina/Semestre_9/FCII/Tareas/Seguimiento2/namespace/v4/intNumber.cpp>
 #include <iomanip>
 #include<string>
 
@@ -9,7 +9,7 @@ using namespace intNumber; // Funciones que toman como argumento string y devuel
 int main()
 {
   // Ingresar el numero
-  string x;
+  double x;
   cout << "Ingrese un numero: " << endl;
   cin >> x;
 
@@ -17,7 +17,7 @@ int main()
   //PUNTO 5 - Parte C -- Para namespace con solo la funcion enteros
   /*
   cout << "Parte entera: " << enteros(x) << endl;
-  */
+  //*/
 
   //================================================================
   //PUNTO 6 - Parte C -- Para namespace con solo ambas funciones, enteros y partefracc

@@ -8,52 +8,43 @@ using namespace std;
 //PUNTO 5 - Parte A Y B
 
 /*
-// Funcion que recibe un numero tipo string y devuelve el valor entero asociado
-int enteros(string n)
+// Funcion que devuelve el valor entero asociado
+int enteros(double n)
   {
-    int N = stof(n);
+    int N = n;
     return N;
   }
 
 // Se usa la funcion para probarla
 int main()
 {
-  string i;
+  double i;
   cout << "Ingrese un numero:\n";
   cin >> i;
   cout << "\nValor ingresado: "<< i << " \nParte entera: " << enteros(i) << endl;
 }
-*/
+//*/
 
 //=======================================================
 //PUNTO 6 - Parte A y B
 //*
 // Funcion que devuelve la parte entera del numero
-int enteros(string n)
+int enteros(double n)
   {
-    int N = stof(n); // Lo convierte a entero
+    int N = n; // Lo convierte a entero
     return N;
   }
 
 // Funcion que devuelve la parte decimal
-float partefracc(string n)
+double partefracc(double n)
   {
-    int pos = n.find('.'); // Encuentra el punto del string
-    string dec = "0";
-    
-    for(int i=pos; i<n.size(); i++) // Agrega los valores despues del punto
-      {
-	dec = dec+n[i];
-      }
-    
-    float res = stof(dec); // Lo convierte a float
-    return res;
+    return n - enteros(n);
   }
 
 // Se prueban ambas funciones
 int main()
 {
-  string i;
+  double i;
   
   cout << "Ingrese un numero:\n";
   cin >> i;

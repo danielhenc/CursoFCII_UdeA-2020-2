@@ -13,13 +13,13 @@ Creacion del NAMESPACE
 /*
 namespace intNumber
 {
-  int enteros(string n) // Funcion devuelve parte entera
+  int enteros(double n) // Funcion devuelve parte entera
   {
-    int N = stof(n);
+    int N = n;
     return N;
   }
 }
-*/
+//*/
 
 //===============================================
 //PUNTO 6 - Parte C
@@ -27,24 +27,15 @@ namespace intNumber
 namespace intNumber
 
 {  
-  int enteros(string n) // Funcion que devuelve parte entera
+  int enteros(double n) // Funcion que devuelve parte entera
   {
-    int N = stof(n);
+    int N = n;
     return N;
   }
 
-  float partefracc(string n) // Funcion que devuelve parte decimal
+  double partefracc(double n) // Funcion que devuelve parte decimal
   {
-    int pos = n.find('.');
-    string dec = "0";
-
-    for(int i=pos; i<n.size(); i++)
-      {
-	dec = dec+n[i];
-      }
-    
-    float res = stof(dec);
-    return res;
+    return n - enteros(n);
   }
 }
 //*/
