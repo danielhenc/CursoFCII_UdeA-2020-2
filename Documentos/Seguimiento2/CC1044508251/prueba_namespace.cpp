@@ -4,7 +4,7 @@
 #include<string>
 
 using namespace std;
-using namespace intNumber; // Funciones que toman como argumento string y devuelve int y float.
+using namespace intNumber; // Funciones que devuelven int y double.
 
 int main()
 {
