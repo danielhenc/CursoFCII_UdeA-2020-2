@@ -3,7 +3,7 @@
 
 using namespace std;
 
-namespace decimal
+namespace ent
 {
   int entero( double a )
   {

@@ -1,6 +1,6 @@
 #include "names.cpp"
 
-using namespace decimal;
+using namespace ent;
 
 int main()
 {
