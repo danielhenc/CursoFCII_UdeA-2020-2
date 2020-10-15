@@ -28,7 +28,6 @@ int main() {
   return 0;
 }
 
-// obtiene la solicitud del usuario
 void leerBytes(fstream & archivoIn, long despl, int n) {
   if (archivoIn.fail()) {
     cout << "No se puede abrir el archivo" << endl;
