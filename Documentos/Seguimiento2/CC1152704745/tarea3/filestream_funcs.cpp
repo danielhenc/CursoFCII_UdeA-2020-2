@@ -100,7 +100,7 @@ void readBytes_a(ifstream &rfile, long pos, int cnum){
 	cout << "Reading " << cnum << " characters form position " << pos << endl;
 
 	// print the characters from the given position to the last, given by pos+cnum
-	for (long cpos = pos; cpos <= (pos + cnum); cpos++){
+	for (long cpos = pos; cpos < (pos + cnum); cpos++){
 		// get on the position cpos of the file to print the respective character
 		rfile.seekg(cpos,std::ios::beg);
 
@@ -124,7 +124,7 @@ void readBytes_b(ifstream &rfile, long pos, int cnum, char *strpos){
 	cout << "Saving " << cnum << " characters form position " << pos << endl;
 
 	// print the characters from the given position to the last, given by pos+cnum
-	for (long cpos = pos; cpos <= (pos + cnum); cpos++){
+	for (long cpos = pos; cpos < (pos + cnum); cpos++){
 		// get on the position cpos of the file to print the respective character
 		rfile.seekg(cpos,std::ios::beg);
 
