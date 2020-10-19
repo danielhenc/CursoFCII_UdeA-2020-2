@@ -10,8 +10,9 @@ using std::endl;
 using std::string;
 
 ifstream load_rfile(string);
-int rfile_count(ifstream &);
-void readBytes(ifstream &,long,int);
+long rfile_count(ifstream &);
+void readBytes_a(ifstream &,long,int);
+void readBytes_b(ifstream &,long,int,char *);
 
 int main(){
 	// Create ifstream instance to load an input file
@@ -36,8 +37,21 @@ int main(){
 	cin >> nchar;
 
 	// Print characters from file
-	readBytes(read_file,pos,nchar);
+	readBytes_a(read_file,pos,nchar);
 	
+	// Define an array of chars to store the extracted chars from the file
+	const int cs_len = nchar+1;
+	char read_chars[cs_len];
+
+	// Fill char array with the extracted chars
+	readBytes_b(read_file,pos,nchar,read_chars);
+	
+	// Print char array of extracted chars from file
+	cout << "Saved array contains: " << read_chars << endl;
+
+	// Close file
+	read_file.close();
+
 	return 0;
 }
 
@@ -52,10 +66,10 @@ ifstream load_rfile(string fname){
 
 		// If the file could not open, throw an exception
 		if (rfile.fail()) throw fname;	
-		else{
-			// notify if file was successfully read
-			cout << "File " << fname << " successfully read, containing " << rfile_count(rfile) << " characters."  << endl;
-		}
+			
+		// notify if file was successfully read
+		cout << "File " << fname << " successfully read, containing " << rfile_count(rfile) << " characters."  << endl;
+		
 		// If the file was loaded succesfully, return the ifstream instance
 		return rfile;
 	}
@@ -69,24 +83,16 @@ ifstream load_rfile(string fname){
 }
 
 // Count characters in text file
-int rfile_count(ifstream &rfile){
-	// character count
-	int ccount = 0;
+long rfile_count(ifstream &rfile){
+	// Place the marker at the end of the file
+	rfile.seekg(0L,std::ios::end);
 	
-	// read a line to count characters in it
-	string rline;
-	
-	// while the file can be read, read a line and cout its characters
-	while(std::getline(rfile,rline)){
-		ccount += rline.length();	
-	}	
-
-	// return character count
-	return ccount;
+	// return position of the marker placed at the end
+	return rfile.tellg() - 1L;
 }
 
 // read file characters
-void readBytes(ifstream &rfile, long pos, int cnum){
+void readBytes_a(ifstream &rfile, long pos, int cnum){
 	// Define character to be read
 	char rchar;
 
@@ -94,12 +100,12 @@ void readBytes(ifstream &rfile, long pos, int cnum){
 	cout << "Reading " << cnum << " characters form position " << pos << endl;
 
 	// print the characters from the given position to the last, given by pos+cnum
-	for (long cpos = pos; cpos < (pos + cnum); cpos++){
+	for (long cpos = pos; cpos <= (pos + cnum); cpos++){
 		// get on the position cpos of the file to print the respective character
 		rfile.seekg(cpos,std::ios::beg);
 
 		// get the character from file
-		rchar = rfile.get();
+		rfile.get(rchar);
 
 		// print the character
 		cout << rchar;
@@ -107,4 +113,27 @@ void readBytes(ifstream &rfile, long pos, int cnum){
 
 	// print a line jumpt at the end
 	cout << endl;
+}
+
+// read file characters and save them in an array
+void readBytes_b(ifstream &rfile, long pos, int cnum, char *strpos){
+	// Define character to be read
+	char rchar;
+
+	// Print how many chars will be read and from which position
+	cout << "Saving " << cnum << " characters form position " << pos << endl;
+
+	// print the characters from the given position to the last, given by pos+cnum
+	for (long cpos = pos; cpos <= (pos + cnum); cpos++){
+		// get on the position cpos of the file to print the respective character
+		rfile.seekg(cpos,std::ios::beg);
+
+		// get the character from file
+		rfile.get(rchar);
+
+		// save char on array and increment the pointer position 
+		*strpos++ = rchar;
+	}
+	// Add an EOL character to the char array
+	*strpos = '\0';
 }
