@@ -1,0 +1,54 @@
+//Librerias
+#include <stdio.h>
+#include <string.h>
+#include <iostream>
+#include <iomanip>
+using namespace std; 
+
+
+//función para la generación aleatoria de núemros
+  int randnum (int i){
+      int randnum = rand() % i; //Creación de números aleatorios hasta el i
+      return randnum;
+      }
+
+
+int main() 
+{
+  srand( time( NULL ) ); //Se inicializa la semilla del generador aleatorio
+  char sentence[1000] = {0}; //Arreglo que va a guardar la oraciòn completa
+  
+  for(int i=0; i<20; i++){ //Ciclo para generar las 20 frase
+ 
+  char articulo[4][8] = { "el ", "un ", "algun ", "ningun " };  //Definición del arreglo a punteros tipo char para los artículos
+  strcat(sentence, *( articulo + randnum (4) )); //Se empieza a añadir la palabra al arreglo que almacena la frase
+
+  char CapitalLetter = sentence[1]; //Toma la primera letra de la oraciòn
+  sentence[1] = toupper(CapitalLetter); //Hace mayúscula la primera letra de la oración
+
+  char sustantivo[5][8] = { "ninio ", "senior ", "perro ", "ciudad ", "auto " }; //Definición del arreglo a punteros tipo char para los sustantivos
+  strcat(sentence, *(sustantivo + randnum(5))); //Concatenar
+
+ char verbo[5][8] = { "manejo ", "salto ", "corrio ", "camino ", "paso " }; //Definición del arreglo a punteros tipo char para los verbos
+ strcat(sentence, *( verbo + randnum(5)  ));  //Concatenar
+
+ char preposicion[5][11] = { "a ", "desde ", "encima de ", "debajo de ", "sobre " };  //Definición del arreglo a punteros tipo char para las preposiciones
+ strcat(sentence, *( preposicion + randnum(5) )); //Concatenar
+
+ strcat(sentence, *(articulo + randnum(4)));  //Concatenar de nuevo con un articulo
+
+ strcat(sentence, *( sustantivo + randnum(5))); //Concatenar con la ultima palabra
+
+ char signos[4][3] = { "; ",". ", ", ", ": " };  //Definición del arreglo a punteros tipo char para los signos de puntuacion
+ strcat(sentence, *( signos + randnum(4) )); //Se añade puntuacion a la frase
+
+
+ char conectores[10][18] = { "","ademas ","incluso","", "tambien ","no solo","", "por el contrario ", "sin embargo ", "entonces " };  //Definición del arreglo a punteros tipo char para los conectores
+ strcat(sentence, *( conectores + rendnum(10) )); //Se termina la frase, para ir formando el parrafo
+
+
+}
+  cout << part1 << "todo acabó" << "." << endl;
+  cout<<"finalmente, pedimos perdón a cualquier escritor o inteligencia artificial que vea semejante insulto creado"<<endl;
+  return 0; 
+}
