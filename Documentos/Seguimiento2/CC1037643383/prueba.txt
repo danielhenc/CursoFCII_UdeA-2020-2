@@ -1,0 +1,1 @@
+En este archivo escribimos cualquier cosa para probar el código del seguimiento 3 de la unidad 2 del curso de física computacional 2.
