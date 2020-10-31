@@ -44,13 +44,13 @@ int main()
   
   cout<<"Saldo inicial: "<< miCuentaCheque.getSaldo()<<endl; // Imprime saldo inicial
 
-  miCuentaCheque.abonarCheque(22); // Abona
+  miCuentaCheque.abonar(22); // Abona
   cout<<"Saldo actual: "<< miCuentaCheque.getSaldo()<<endl; // Imprime saldo
 
-  miCuentaCheque.cargarCheque(55); // Retira un valor invalido
+  miCuentaCheque.cargar(55); // Retira un valor invalido
   cout<<"Saldo actual: "<< miCuentaCheque.getSaldo()<<endl; // Como se retiro un valor invalido no costo la transaccion
   
-  miCuentaCheque.cargarCheque(5.5); // Retira un valor valido
+  miCuentaCheque.cargar(5.5); // Retira un valor valido
   cout<<"Saldo actual: "<< miCuentaCheque.getSaldo()<<endl; // Imprime saldo actual
 
   return 0; 

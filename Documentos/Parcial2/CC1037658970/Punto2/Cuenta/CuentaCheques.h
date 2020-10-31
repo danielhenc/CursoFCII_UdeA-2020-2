@@ -23,13 +23,13 @@ public:
    * @brief Agrega un abono la cuenta realizando el cobro de la transaccion
    * @param abono : abono
    */
-  void abonarCheque( double abono ); 
+  void abonar( double abono ); 
   
   /**
    * @brief Carga un retiro a la cuenta realizando el cobro de la transaccion
    * @param retiro : retiro
    */
-  void cargarCheque( double retiro ); 
+  void cargar( double retiro ); 
   
 private:
   double costoTransaccion; // Costo de la trnasaccion

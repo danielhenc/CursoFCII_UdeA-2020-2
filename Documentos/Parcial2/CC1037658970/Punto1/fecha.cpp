@@ -68,8 +68,6 @@ bool Fecha::anioBisiesto()
     else return true;
   }
   else return false;
-  
-  return true;
 }
 
 void Fecha::diaSig()
