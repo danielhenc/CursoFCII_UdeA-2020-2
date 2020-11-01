@@ -4,58 +4,74 @@
 #include <ctime>  
 #include <fstream>
 
-#define WORDS_PATH "palabras.txt"
+#define WORDS_PATH "palabras.txt" // archivo que contiene las palabras para jugar
 
 
 using namespace std;
 
+
+//===== metodos y funciones =====
 void escoger_palabra(int *);
 void jugar(void);
 int turno(int *, string *);
-void mostrar_palabra(string);
 int numero_de_letras(void);
+void mostrar_palabra_parcial(string);
+void render(int*, string*);
 void presentar(void);
 void dibujar(int);
 
+//===== la palabra para jugar ====
 string palabra;
+
+
 
 int main(int argc, char const *argv[])
 {
-	int play = 1;
-	int nivel;
+	int play = 1; // centinela para fin del juego
+	int nivel; // dificultad de la palabra 
 
 	srand(time(NULL));
 
-	presentar();
-	cout << "Bienvenido jugador,";
-
 	while(play != -1){
-
-		cout << "selecciona la dificultad para continuar: " << endl;
+		system("clear");
+		presentar();
+		cout << "Bienvenido jugador,";
+		cout << "selecciona la dificultad para continuar: \n" << endl;
 		cout << "1. Facil" << endl;
 		cout << "2. Medio" << endl;
 		cout << "3. Dificil" << endl;
 		cout << "4. exit" << endl;
 		cin >> nivel;
 	
-		if(nivel == 4) break ;
+		if(nivel == 4) break ; // terminacion voluntaria
 
-		escoger_palabra(&nivel);
-		cout << "main" <<endl;
-		cout << palabra << endl;
-		jugar();
+		escoger_palabra(&nivel); // selecciona la palabra
+		jugar(); // comienza el ciclo del juego
 
-		cout << "Bien jugado! Presiona cualquier tecla para volver a jugar o -1 para salir" << endl;
+		cout << "Bien jugado! Presiona cualquier tecla para volver a jugar o -1 para salir" << endl; //reinicio o termincion voluntaria
 		cin >> play;
 	}
 
 	return 0;
 }
 
+
+//=========================== Metodos para la dinamica del juego ===========================
+
+//escoger_palabra -> seleciona aleatoriamente una 
+//					 palabra del archivo WORDS_PAHT 
+//					 para iniciar el juego
+// jugar -> controla el  desarrollo del juego segun
+// 			adivine o no letras en cada turno
+// turno -> determina si el usuario adivina o no las
+// 			letras en cada intento, no puede fallar mas
+// 			de 7 veces.
+
+
 void escoger_palabra(int *nivel){
 
-	vector <string> lista_palabras;
-	string palabra_aux;
+	vector <string> lista_palabras; // para cargar las palabras segun la dificultad
+	string palabra_aux; // para ir leyendo las palabras del archivo
 	ifstream archivo_palabras(WORDS_PATH);
 
 	if (archivo_palabras.fail()){
@@ -66,111 +82,197 @@ void escoger_palabra(int *nivel){
     while(archivo_palabras >> palabra_aux){
     	
     	switch(*nivel){
-    		case 1:
+    		case 1:// dificultad 1 : menos de 7 letras
     			if (palabra_aux.length() <= 7 ) 
     				lista_palabras.push_back(palabra_aux);
     			break;
-    		case 2:
+    		case 2:// dificultad 2 : entre 7 y 11 letras
     			if (palabra_aux.length() > 7  && palabra_aux.length() <= 11) 
     				lista_palabras.push_back(palabra_aux);
     			break;
-    		case 3:
+    		case 3:// dificultad 3 : mas de 11 letras
     			if (palabra_aux.length() > 11 ) 
     				lista_palabras.push_back(palabra_aux);
     			break;
-    		default:
+    		default:// por defecto dificultad 1
     			if (palabra_aux.length() <= 7 ) 
     				lista_palabras.push_back(palabra_aux);
     			break;
     	}
     }
 
-    int i = rand() % lista_palabras.size();
+    int i = rand() % lista_palabras.size(); 
 
-    palabra = lista_palabras.at(i);
+    palabra = lista_palabras.at(i); // escoge la palabra al azar
 }
 
+//===============================================================================
 
-void jugar(void){
+void jugar(void){ // ciclo de juego
 
-	int intento = 0;
-	int numero_de_letras_restantes = numero_de_letras();
-	int stop = 0;
-	bool winner = false;
-	string letras_adivinadas = " ";
+	int intento = 0; // numero de fallos 
+	int numero_de_letras_restantes = numero_de_letras(); // numero de letras diferentes en la palabra
+	bool winner = false; // estado del jugador
+	string letras_adivinadas = " "; 
 
-	cout << "Comience...\n" << endl;
+	while(1){ // mientras no gane o pierda
 
-	while(stop == 0){
+		// cada turno pide una letra y determina si adivino o no
+		numero_de_letras_restantes += turno(&intento, &letras_adivinadas); 
 		
-		numero_de_letras_restantes += turno(&intento, &letras_adivinadas);
-		
-		if(intento == 8) break;
+		if(intento == 7){ // si completa el ahorcado pierde
+			render(&intento, &letras_adivinadas);
+			break;
+		} 
 
-		if (numero_de_letras_restantes == 0){
+		if (numero_de_letras_restantes <= 0){ // si adivina todas las letras gana
 			winner = true;
 			break;
 		}
 	}
 
-	if(winner){
-		dibujar(-1);
+	if(winner){ //mensaje de ganador
+		intento = -1;
+		render(&intento, &letras_adivinadas);
 		cout << "FELICITACIONES USTED GANO" << endl;	
 	}
-	else{
-		cout << "YA SE MURIO, MEJOR SUERTE LA PROXIMA" << endl;	
+	else{ // mensaje de perdedor
+		cout << "YA SE MURIO, la palabra era: " << palabra << endl;
+		cout << "MEJOR SUERTE PARA LA PROXIMA." << endl; 
 	}
 
 }
 
-int turno(int *intento, string *letras_adivinadas){
-	char letra;
+//===============================================================================
 
-	cout << "Palabra: " ;
-	mostrar_palabra(*letras_adivinadas);
-	cout << endl;
-	dibujar(*intento);
-	cout << "Letra: ";
+int turno(int *intento, string *letras_adivinadas){
+	string letra;
+	char arriesgar;
+	string palabra_aux;
+
+	render(intento, letras_adivinadas); // muestra el estado de la partida
+
+	cout << "\nLetra: "; 
 	cin >> letra;
 
-	if (palabra.find(letra) != string::npos)
-		(*letras_adivinadas).append(letra);
-		return -1;	
-	else
-		*intento++;
-	
+
+	if (palabra.find(letra) != string::npos){ 
+		// si adivino la letra la guarda y resta uno al numero de letras faltantes
+		letras_adivinadas->append(letra);
+
+		render(intento, letras_adivinadas);
+		// oportunidad de adivinar
+		cout << "\nAcerto! desea arriesgarse a adivinar la palabra completa ? (y/n)" << endl;
+		cin >> arriesgar;
+
+		if (arriesgar == 'y'){
+			// si adivina la palabra Gana, sino
+			// le suma un fallo y descuenta una letra restante
+			cout << "Palabra: " ;
+			cin >> palabra_aux;
+
+			if (palabra_aux == palabra){
+				*letras_adivinadas = palabra;
+				return -1 * palabra.length();
+			}
+			else{
+				cout << "Fallo!" << endl;
+				*intento += 1; 
+			}
+		}
+		
+		else return -1;
+	}
+
+	else *intento += 1; // si no adivina le suma un fallo
+
 	return 0;
 
 }
 
 
-void mostrar_palabra(string letras_adivinadas){
+//================================= Metodos utilitarios ===================================
+
+// numero_de_letras -> determina cuantas letras distintas tiene 
+// 					   la palabra en cada partida para controlar 
+// 					   cuando gana
+// 					   
+// mostrar_palabra_parcial -> muestra parcialmente la palabra 
+// 							  chequeando cuales se han adivinado ya
+// 
+// render -> muestra el estado de la partida, tanto el avance del
+// 			 ahorcado como lo intentos y las letras adivinadas
+// 			
+// dibujar -> dibuja en pantalla el avance del ahorcado segun los fallos
+// 
+// presentar -> muestra el arreglo de caracteres que forma el nombre del juego
+
+
+int numero_de_letras(void){
+	// Esta funcion cuenta las letras distintas 
+	// que tiene la palabra
+
+	int contador = 0; // numero de letras distintas
+	int k = 0; // comienza por la primer letra
+	int i;
+	string palabra_aux = palabra; 
+	string letra;
 	
-	string palabra_aux(palabra.length(), '-');
+	while(k != string::npos){
 
-	int i = palabra.find(letras_adivinadas);
+		contador++; // cada ciclo de k es una letra distinta entonces se suma 1
+		
+		letra = palabra_aux[k];
+		palabra_aux.replace(k, 1, "."); // se eliminan las letras repetidas para no sobrecontar
 
-	while(i != string::npos){
-		palabra_aux.replace(i, 1, "F");
-		i = palabra.find(letras_adivinadas, i + 1);
+		i = palabra_aux.find(letra);
+
+		while(i != string::npos){
+			palabra_aux.replace(i, 1, ".");
+			i = palabra_aux.find(letra);
+		}
+
+		k = palabra_aux.find_first_not_of("."); //se mira si quedan mas letras que tener en cuenta
+	}
+
+	return contador;
+}
+
+//===============================================================================
+
+void mostrar_palabra_parcial(string letras_adivinadas){
+	// Esta funcion muestra parcialmente la palabra segun
+	// las letras que ya se hayan adivinado
+	
+	string palabra_aux(palabra.length(), '-'); // se rellena la palabra con -
+
+	int i = palabra.find_first_of(letras_adivinadas);
+
+	while(i != string::npos){ // si adivina alguna palabra se muestra en que ubicacion estan
+		palabra_aux.replace(i, 1, string(1,palabra[i]));
+		i = palabra.find_first_of(letras_adivinadas, i + 1);
 	}
 
 	cout << palabra_aux;
 }
 
+//===============================================================================
 
-int numero_de_letras(void){
-	int contador;
-	string letras;
+void render(int *intento, string *letras_adivinadas){
+	// muestra en pantalla el estado de la partida 
+	system("clear");
+	presentar();
+	cout << "intento: " << *intento <<endl;
+	cout << "Palabra: " ;
+	mostrar_palabra_parcial(*letras_adivinadas);
+	cout << "\n" << endl;
+	dibujar(*intento);
 
-	for (int i = 0; i < palabra.length(); i++)
-		contador = (letras.find(palabra[i]) != strng::npos) ? contador + 1;
-
-	return contador;
 }
 
+//===============================================================================
 
-void dibujar(int intento){
+void dibujar(int intento){ // dibujos del ahorcado segun los fallos que tenga
     switch (intento){
 	    case 0:
 	        cout << "__________\n|         |\n|\n|\n|\n|\n|\n|";
@@ -193,7 +295,7 @@ void dibujar(int intento){
 	    case 6:
 	        cout << "__________\n|         |\n|         0\n|        /|\\\n|         |\n|        /\n|\n|";
 	        break;
-	    case 7:
+	    case 7: // PERDEDOR
 	        cout << " _________\n|         |\n|         0\n|        /|\\\n|         |\n|        / \\\n|\n|\n";
 	        break;
 	    case -1: //GANADOR
@@ -205,6 +307,7 @@ void dibujar(int intento){
     cout << endl;
 }
 
+//===============================================================================
 
 void presentar(){
 	cout << R"(
