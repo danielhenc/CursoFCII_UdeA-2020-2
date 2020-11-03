@@ -4,7 +4,7 @@ SRC_DIR := src
 
 OBJ := $(SRC_DIR)/cuenta.cpp $(SRC_DIR)/cuenta_ahorros.cpp $(SRC_DIR)/cuenta_cheques.cpp main.cpp
 
-CFLAGS   := -Iinclude -Wall 
+CFLAGS   := -I$(INC_DIR) -Wall 
 EXEC := a.out
 
 

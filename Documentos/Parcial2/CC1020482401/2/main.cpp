@@ -17,6 +17,7 @@ int main(int argc, char const *argv[])
 	cout << "Cuenta 1:" << endl;
 	cuenta1.cuentaInfo();
 	cout << endl;
+	cout << fixed << setprecision(0);
 	cout << "Cuenta 2:" << endl;
 	cuenta2.cuentaInfo();
 	cout << endl;
@@ -26,7 +27,6 @@ int main(int argc, char const *argv[])
 	cuenta1.abonar(50000);
 	cuenta2.abonar(50000);
 
-	cout << fixed << setprecision(0);
 	cout << "Luego del priemer abono los saldos son: " << endl;
 	cout << "Cuenta 1: " << cuenta1.getSaldo() << endl;
 	cout << "Cuenta 2: " << cuenta2.getSaldo() << endl;
