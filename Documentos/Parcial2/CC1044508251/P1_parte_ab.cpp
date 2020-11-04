@@ -29,7 +29,7 @@ int main()
 
   int a; 
 
-  cout << "Ingrese dias para aumentar: " ;
+  cout << "\nIngrese dias para aumentar: " ;
   cin >> a;
   
   for(int i=0; i<a; i++)
