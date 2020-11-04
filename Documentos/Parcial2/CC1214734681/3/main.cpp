@@ -57,7 +57,7 @@ void findLocation(string sample, char findIt, vector<int>& characterLocations){
 void replaceChar(string& hidden_word, string replaceIt, vector<int>& pos){
 	// replace one char in the hidden word at the given positions
 
-	for (int i=0; i<=pos.size(); i++) hidden_word.replace(pos[i], 1, replaceIt);
+	for (int i=0; i<pos.size(); i++) hidden_word.replace(pos[i], 1, replaceIt);
 }
 
 void AskToGess(string true_word, int& num_tries){
@@ -73,6 +73,7 @@ void AskToGess(string true_word, int& num_tries){
 	if (answer == 'y'){
 		cout << "Ingrese la palabra que usted cree que es: " << endl;
 		cin >> guess_word;
+		cout << true_word << guess_word << endl;
 		if ( guess_word == true_word){
 			cout << "Felicidades! Adivinaste la palabra" << endl;
 			num_tries = 7;  // the game ends
@@ -106,7 +107,7 @@ string ChooseWord( string file_path ){
     }
     cout << "Se cargo el archivo de forma exitosa" << endl;
     // now put the words inside a vector
-    while(getline( WORD_FILE, aux) ){
+    while(WORD_FILE >> aux ){
     	WordsList.push_back(aux);
     	i++;
     }
