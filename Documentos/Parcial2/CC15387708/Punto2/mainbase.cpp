@@ -11,7 +11,7 @@ int main()
 
   cout << "Con el abono el saldo es de " << cuenta1.getSaldo() << " pesos\n" << endl;
   
-  cuenta1.cargar(1000000); // Carga un mayor valor a retirar que el saldo e imprime mensaje
+  cuenta1.cargar(1000000); // Carga un mayor valor a retirar que el saldo, indicando que el monto excedió el saldo
   
   return 0;
 }
