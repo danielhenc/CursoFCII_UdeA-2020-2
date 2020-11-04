@@ -14,3 +14,16 @@ contener las preposiciones "a", "desde", "encima de", "debajo de" y "sobre".
 
 b) Una vez que escriba el programa anterior, modifíquelo para producir una historia breve que consista de varias de estas
 oraciones (¿qué le parecería un escritor de tesis al azar?).
+
+
+
+Segui2_2:
+
+Resuelva los ejercicios 5 y 6 de la seccion 7.5 del libro Guia (Bronson 2ed).
+Si asi lo desea, podra hacer el trabajo solo en dos archivos: uno para el espacio de nombres y el otro para la funcion principal (se discutira en clase).
+
+
+Segui2_3:
+
+Resuelva el ejercicio 6 de la seccion 8.4 del libro Guia (Bronson 2ed).
+
